@@ -45,4 +45,9 @@ class ExamServiceTest {
     }
 
 
+    @Test
+    void findBestPersonTest2() {
+        System.out.println(examService.findBestPerson2());
+    }
+
 }

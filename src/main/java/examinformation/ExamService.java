@@ -48,7 +48,11 @@ public class ExamService {
         return results.keySet().stream().filter(name -> results.get(name).getTheory() < theoryMax * 0.51 || results.get(name).getPractice() < practiceMax * 0.51).toList();
     }
 
+    public String findBestPerson2() {
+        return results.keySet().stream().filter(name -> !findPeopleFailed().contains(name)).max(Comparator.comparing(o -> results.get(o).getTotal())).orElseThrow(() -> new IllegalStateException("Result not found!"));
+    }
+
     public String findBestPerson() {
-        return results.keySet().stream().filter(name -> !findPeopleFailed().contains(name)).max(Comparator.comparing(o -> results.get(o).getTotal())).orElseThrow(()->new IllegalStateException("Result not found!"));
+        return results.keySet().stream().filter(examResult -> !findPeopleFailed().contains(examResult)).sorted(Comparator.comparing(name -> results.get(name).getTotal()).reversed()).toList().get(0);
     }
 }
